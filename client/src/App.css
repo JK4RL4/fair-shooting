@@ -1,0 +1,749 @@
+@font-face{
+  font-family: "gomarice_game_music_love";
+  src: url("./font/gomarice_game_music_love.ttf"); 
+}
+
+@font-face{
+  font-family: "oi-regular";
+  src: url("./font/oi-regular.ttf"); 
+}
+
+* {
+  user-select: none;
+}
+
+body {
+  overflow: hidden;
+  cursor: none;
+}
+
+.app {
+  position: relative;
+}
+
+.intro {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.intro img {
+  height: 10rem;
+  width: auto;
+}
+
+.intro a {
+  margin: 1rem 0;
+  font-family: "gomarice_game_music_love";
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: black;
+  cursor: none;
+}
+
+.intro label {
+  margin: 1rem 0;
+  font-family: "Arial Black", sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.player-name {
+  font-size: 1rem;
+  text-align: center;
+}
+
+.game-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.title {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: row;
+}
+
+.title p {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  background: url("./img/text_background.png") no-repeat center center;
+  background-size: cover;
+  color: transparent;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text; 
+  font-family: "gomarice_game_music_love";
+  font-size: 4rem;
+  padding: 0;
+  margin: 2rem 0 0 0;
+  text-align: center;
+  -webkit-text-stroke: 0.5px white; 
+}
+
+.title img {
+  margin: 0 -2rem 0 -1rem;
+  padding-top: 2rem;
+  height: 4rem;
+  width: auto;
+  transform: rotate(20deg);
+}
+
+.interface {
+  position: absolute;
+  z-index: 999;
+  bottom: 10%;
+  right: 5%;
+  width: 25%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: url("./img/player_panel.png") no-repeat;
+  background-size: 100% 100%;
+  filter: drop-shadow(0px -2px 2px black);
+  animation-name: interfaceSetting;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes interfaceSetting {
+  0% { transform: translateY(150%); }
+  100% { transform: translateY(10%); }
+}
+
+.player {
+  font-family: "gomarice_game_music_love";
+  margin: 0.5rem 0 0 2rem;
+  padding: 0;
+  font-size: 2rem;
+}
+
+.points {
+  font-family: "gomarice_game_music_love";
+  margin: 0.5rem 3rem 0 0;
+  padding: 0;
+  font-size: 2rem;
+}
+
+.background {
+  position: absolute;
+  z-index: 0;
+  width: 100%;
+  height: 100vh;
+  background: url("./img/stage_background.png") no-repeat;
+  background-size: 100% 100%;
+}
+
+.loading {
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: url("./img/stage_background.png") no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.loading-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+}
+
+.loading p {
+  font-family: "Arial Black", sans-serif;
+  font-size: 2rem;
+  color: black;
+}
+
+.grass {
+  position: absolute;
+  z-index: 13;
+  top: 25%;
+  width: 100%;
+  height: 40vh;
+  background: url("./img/grass.png") no-repeat;
+  background-size: 100% auto;
+  filter: drop-shadow(0px -2px 5px black);
+  animation-name: grassSetting;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  pointer-events: none;
+}
+
+@keyframes grassSetting {
+  0% { top: 200%; }
+  100% { top: 25%; }
+}
+
+.top-wave {
+  position: absolute;
+  z-index: 23;
+  bottom: 0;
+  width: 100%;
+  height: 50vh;
+  background: url("./img/top_wave.png") no-repeat;
+  background-size: 100% 100%;
+  filter: drop-shadow(0px -5px 5px black);
+  animation-name: topWaveSetting;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  pointer-events: none;
+}
+
+@keyframes topWaveSetting {
+  0% { bottom: -100%; }
+  100% { bottom: 0; }
+}
+
+.bottom-wave {
+  position: absolute;
+  z-index: 33;
+  bottom: 0;
+  width: 100%;
+  height: 30vh;
+  background: url("./img/bottom_wave.png") repeat;
+  background-size: 100% 100%;
+  filter: drop-shadow(0px -5px 5px black);
+  animation-name: bottomWaveSetting;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  pointer-events: none;
+}
+
+@keyframes bottomWaveSetting {
+  0% { bottom: -100%; }
+  100% { bottom: 0; }
+}
+
+.duck-container {
+  position: absolute;
+  width: 136.5px;
+  height: 104.5px;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+@keyframes duckLeft {
+  0% { transform: translateX(115vw) }
+  100% { transform: translateX(-15vw) }
+}
+
+@keyframes duckRight {
+  0% { transform: translateX(-15vw) }
+  100% { transform: translateX(115vw) }
+}
+
+.duck-perspective {
+  position: relative;
+}
+
+.duck {
+  position: absolute;
+  width: 136.5px;
+  height: 104.5px;
+  transform-style: preserve-3d;
+  transform-origin: bottom center;
+  animation-duration: 0.45s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes duckHit {
+  0% {}
+  100% { transform: rotateX(90deg); }
+}
+
+.duck-top {
+  z-index: 10;
+  top: 20%;
+}
+
+.duck-mid {
+  z-index: 20;
+  top: 40%;
+}
+
+.duck-bottom {
+  z-index: 30;
+  top: 60%;
+}
+
+.duck-right {
+  background: url("./img/duck_right.png") no-repeat;
+  background-size: 100% 100%;
+  filter: drop-shadow(0px -5px 5px black);
+}
+
+.duck-left {
+  background: url("./img/duck_left.png") no-repeat;
+  background-size: 100% 100%;
+  filter: drop-shadow(0px -5px 5px black);
+}
+
+.duck-right-blue {
+  background: url("./img/black_duck_right.png") no-repeat;
+  background-size: 100% 100%;
+  filter: drop-shadow(0px -5px 5px black);
+}
+
+.duck-left-blue {
+  background: url("./img/black_duck_left.png") no-repeat;
+  background-size: 100% 100%;
+  filter: drop-shadow(0px -5px 5px black);
+}
+
+.duck-explosion {
+  position: absolute;
+  top: -15px;
+  left: -20px;
+  width: 150px;
+  height: 150px;
+  background: url("./img/explosion.png") no-repeat;
+  background-size: 300%;
+}
+
+.hit-box {
+  position: absolute;
+  top: 37px;
+  left: 44px;
+  width: 48px;
+  height: 50px;
+}
+
+.target {
+  position: absolute;
+  z-index: 9999;
+  width: 32px;
+  height: 32px;
+  background: url("./img/target.png") no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+}
+
+.duck-points {
+  position: absolute;
+  width: 100%;
+  font-family: "gomarice_game_music_love";
+  font-size: 1.5rem;
+  text-align: center;
+  animation-name: duckPoints;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes duckPoints {
+  0% { top: 200%; }
+  50% { opacity: 1; }
+  100% { top: -100%; 
+       opacity: 0;}
+}
+
+.base {
+  position: absolute;
+  bottom: 25%;
+  width: 100%;
+  height: 10px;
+  background: url("./img/duck_base.png") no-repeat;
+  background-size: 100% 100%;
+  filter: drop-shadow(0px -2px 5px black);
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.base-top {
+  z-index: 11;
+  bottom: 65%;
+  animation-name: baseTopSetting;
+}
+
+@keyframes baseTopSetting {
+  0% { left: 200%; }
+  100% { left: 0; }
+}
+
+.base-mid {
+  z-index: 21;
+  bottom: 45%;
+  animation-name: baseMidSetting;
+}
+
+@keyframes baseMidSetting {
+  0% { left: -200%; }
+  100% { left: 0; }
+}
+
+.base-bottom {
+  z-index: 31;
+  bottom: 25%;
+  animation-name: baseBottomSetting;
+
+}
+
+@keyframes baseBottomSetting {
+  0% { left: 200%; }
+  100% { left: 0; }
+}
+
+.best5 {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35rem;
+  height: 45rem;
+  background: url("./img/record.png") no-repeat;
+  background-size: 100% 100%;
+  animation-name: best5Setting;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes best5Setting {
+  0% { left: 200%; }
+  100% { left: 50%; }
+}
+
+.best5-content {
+  margin-top: 13rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.best5 table {
+  width: 22rem;
+  margin-top: 1rem;
+}
+
+.best5-pos {
+  font-family: "gomarice_game_music_love";
+  font-size: 1.5rem;
+}
+
+.best5-player {
+  font-family: "gomarice_game_music_love";
+  font-size: 1.5rem;
+}
+
+.best5-points {
+  font-family: "gomarice_game_music_love";
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.best5-player-points {
+  font-family: "Arial Black", sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.best5-position {
+  padding-right: 1rem;
+  font-family: "Arial Black", sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.best5-player-name {
+  font-family: "Arial Black", sans-serif;
+  font-size: 1.5rem;
+}
+
+.text-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  width: 50%;
+  height: 20%;
+  margin: 1rem;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  border: 0.5rem solid black;
+  border-radius: 1rem;
+  background-color: white;
+  font-family: "Arial Black", sans-serif;
+  font-size: 1.5rem;
+  filter: drop-shadow(0px -2px 2px black);
+  animation-name: textPanelSetting;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes textPanelSetting {
+  0% { bottom: -100%; }
+  100% { bottom: 0; }
+}
+
+.text-panel-info {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text-panel p {
+  margin: -0.5rem 0 1rem 0;
+  padding: 0;
+  text-align: center;
+}
+
+.text-panel img {
+  height: auto;
+  width: 10%;
+  margin-left: 2rem;
+}
+
+.text-panel button {
+  border: none;
+  background: none;
+  outline: none;
+  font-family: "gomarice_game_music_love";
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: red;
+  cursor: none;
+}
+
+.text-panel-link {
+  text-decoration: none;
+  font-family: "gomarice_game_music_love";
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: red;
+  cursor: none;
+}
+
+.block { 
+  position: absolute; 
+  height: 100px;
+}
+
+.block-little {
+  width: 10%;
+  background: url("./img/block_little.png") no-repeat;
+  background-size: 100% 100%;
+}
+
+.block-big { 
+  width: 30%;
+  background: url("./img/block_big.png") no-repeat;
+  background-size: 100% 100%;
+}
+
+.block-top { 
+  z-index: 12;
+  top: 21%; 
+}
+
+.block-mid { 
+  z-index: 22;
+  top: 41%; 
+}
+
+.block-bottom { 
+  z-index: 32;
+  top: 61%; 
+}
+
+.block-big-left { 
+  animation-name: blockBLSetting;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes blockBLSetting {
+  0% { left: -100%; }
+  100% { left: 20%; }
+}
+
+.block-big-center { 
+  animation-name: blockBCSetting;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes blockBCSetting {
+  0% { left: -100%; }
+  100% { left: 35%; }
+}
+
+.block-big-right { 
+  animation-name: blockBRSetting;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes blockBRSetting {
+  0% { left: -100%; }
+  100% { left: 60%; }
+}
+
+.block-little-left { 
+  animation-name: blockLLSetting;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes blockLLSetting {
+  0% { left: 200%; }
+  100% { left: 13.3%; }
+}
+
+.block-little-center { 
+  animation-name: blockLCSetting;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes blockLCSetting {
+  0% { left: 200%; }
+  100% { left: 45%; }
+}
+
+.block-little-right { 
+  animation-name: blockLRSetting;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes blockLRSetting {
+  0% { left: 200%; }
+  100% { left: 79.9%; }
+}
+
+.block-big-animation { 
+  animation-name: blockBAnimation;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.block-big-animation-reverse { 
+  animation-name: blockBAnimation;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: reverse;
+}
+
+@keyframes blockBAnimation {
+  0% { left: 35%; }
+  25% { left: 70%; }
+  50% { left: 35%; }
+  75% { left: 0%; }
+  100% { left: 35%; }
+}
+
+.block-little-left-animation { 
+  animation-name: blockLLAnimation;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blockLLAnimation {
+  0% { left: 13.3%; }
+  18% { left: 0%; }
+  36% { left: 13.3%; }
+  75% { left: 35.3%; }
+  100% { left: 13.3%; }
+}
+
+.block-little-right-animation { 
+  animation-name: blockLRAnimation;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blockLRAnimation {
+  0% { left: 79.9%; }
+  18% { left: 89.9%; }
+  36% { left: 79.9%; }
+  75% { left: 54.9%; }
+  100% { left: 79.9%; }
+}
+
+.best5-title {
+  position: relative;
+  margin: 4rem 0 0 -1rem;
+  padding: 0;
+  font-family: "gomarice_game_music_love";
+  font-size: 2rem;
+  color: black;
+  text-transform: uppercase;
+  word-spacing: 0.5rem;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  z-index: 99;
+  width: 100%;
+  height: 5vh;
+  background-image: linear-gradient(to right, rgb(168, 209, 109) , white);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer p {
+  margin: 0 0 0 1rem;
+  padding: 0;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.footer img {
+  margin: 0 1rem 0 0;
+  height: 1.5rem;
+  width: auto;
+}
+
+
+.highlighted-container {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.highlighted-row {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(243, 107, 107, 0.442);
+}
+
+.best5-row-player {
+  position: relative;
+}
