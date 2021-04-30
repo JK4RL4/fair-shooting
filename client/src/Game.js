@@ -30,9 +30,28 @@ function Game() {
   let [other5, setOther5] = useState();
   let [getBest5, setGetBest5] = useState(false);
   let [best5Ready, setBest5Ready] = useState(false);
-  let [texts, setTexts] = useState({});
-  let [getTexts, setGetTexts] = useState(false);
-  let [textsReady, setTextsReady] = useState(false);
+  let [texts, setTexts] = useState({
+                                      "intro" : "¿Cuál es tu nombre vaquero?",
+                                      "level1" : {
+                                          "text1" : "Veamos qué tal lo haces forastero."
+                                      },
+                                      "level2" : {
+                                          "text1" : "No está mal. ¿Te atreves con el siguiente nivel?",
+                                          "text2" : "¡Oh, vaya! Quizás tendría que haberte avisado, los azules restan."
+                                      },
+                                      "level3" : {
+                                          "text1" : "¿Preparado para el gran final?"
+                                      },
+                                      "gameEnd" : {
+                                          "text1" : "Muy bien vaquero. ¿Otro intento?",
+                                          // "text1" : "Muy bien vaquero. ¿Habrás sido el más rápido?",
+                                          "text2" : "Hmm... parece que no, pero no te preocupes, también tenemos un lugar para los de tu calaña.",
+                                          "text3" : "Enhorabuena vaquero, aquí sí tienes un hueco acorde a tus habilidades.",
+                                          "text4" : "Pues va a ser que no, aunque siempre puedes volver a intentarlo."
+                                      }
+});
+  // let [getTexts, setGetTexts] = useState(false);
+  let [textsReady, setTextsReady] = useState(true);
   let [duckDead, setDuckDead] = useState([]);
 
   const generateDucks = (level, direction, vel, points) => {
@@ -47,11 +66,11 @@ function Game() {
     setBlueDucks(newDucks);
   }
 
-  const getApiData = (url) => {
-    fetch(url)
-      .then(res => res.json())
-      .then(data => setApiData(data))
-  }
+  // const getApiData = (url) => {
+  //   fetch(url)
+  //     .then(res => res.json())
+  //     .then(data => setApiData(data))
+  // }
 
   useEffect(() => {
     let currentLevel = {level1: false, level2: false, level3: false, gameEnd: false};
@@ -59,38 +78,38 @@ function Game() {
     setGameLevel(currentLevel);
   }, [nextLevel])
 
-  useEffect(() => {
-    setGetTexts(true);
-    let collection = "GameTexts";
-    getApiData("http://localhost:9000/apiData/" + collection);
-  }, [])
+  // useEffect(() => {
+  //   setGetTexts(true);
+  //   let collection = "GameTexts";
+  //   getApiData("http://localhost:9000/apiData/" + collection);
+  // }, [])
 
-  useEffect(() => {
-    if (gameLevel.gameEnd) {
-      setGetBest5(true);
-      let collection = "Best5";
-      getApiData("http://localhost:9000/apiData/" + collection);
-    }
-  }, [gameLevel])
+  // useEffect(() => {
+  //   if (gameLevel.gameEnd) {
+  //     setGetBest5(true);
+  //     let collection = "Best5";
+  //     getApiData("http://localhost:9000/apiData/" + collection);
+  //   }
+  // }, [gameLevel])
 
-  useEffect(() => {
-    if (apiData && getTexts) {
-      setGetTexts(false);
-      setTexts(apiData.slice()[0].texts);
-    } else if (apiData && getBest5) {
-      setGetBest5(false);
-      setBest5(apiData[0].trollRecords.array.slice());
-      setOther5(apiData[0].playerRecords.array.slice());
-    }
-  }, [apiData])
+  // useEffect(() => {
+  //   if (apiData && getTexts) {
+  //     setGetTexts(false);
+  //     setTexts(apiData.slice()[0].texts);
+  //   } else if (apiData && getBest5) {
+  //     setGetBest5(false);
+  //     setBest5(apiData[0].trollRecords.array.slice());
+  //     setOther5(apiData[0].playerRecords.array.slice());
+  //   }
+  // }, [apiData])
 
-  useEffect(() => {
-    setTextsReady(true);
-  }, [texts])
+  // useEffect(() => {
+  //   setTextsReady(true);
+  // }, [texts])
 
-  useEffect(() => {
-    setBest5Ready(true);
-  }, [best5])
+  // useEffect(() => {
+  //   setBest5Ready(true);
+  // }, [best5])
 
   useEffect(() => {
     if (gameLevel.level1 || gameLevel.level2 || gameLevel.level3) {
@@ -102,6 +121,10 @@ function Game() {
   const shot = () => {
     let shotAudio = new Audio(shotUrl);
     shotAudio.play();
+  }
+
+  const reloadGame = () => {
+    window.location.href = "http://localhost:3000/";
   }
   
   funcs.useEventListener("mousedown", shot);
@@ -142,7 +165,7 @@ function Game() {
                                          setBlueDucks={setBlueDucks} generateDucks={generateDucks} generateBlueDucks={generateBlueDucks} setBlockers={setBlockers} />}
         {gameLevel.level3 && <GameLevel3 gameLevel={gameLevel} setNextLevel={setNextLevel} blueDuckFlag={blueDuckFlag} texts={texts.level3} setDucks={setDucks}
                                          setBlueDucks={setBlueDucks} generateDucks={generateDucks} generateBlueDucks={generateBlueDucks} setBlockers={setBlockers} />}
-        {gameLevel.gameEnd && <TextPanel text={texts.gameEnd.text1} buttonText="" linkText="terminar" link="/end" />}
+        {gameLevel.gameEnd && <TextPanel text={texts.gameEnd.text1} buttonText="volver a jugar" buttonAction={reloadGame} linkText="" link="" />}
         <Player player={playerName} points={playerPoints} />
       </Route>}
       {textsReady && <Route exact path='/'>

@@ -372,7 +372,7 @@ body {
 
 .base-top {
   z-index: 11;
-  bottom: 65%;
+  bottom: 70%;
   animation-name: baseTopSetting;
 }
 
@@ -383,7 +383,7 @@ body {
 
 .base-mid {
   z-index: 21;
-  bottom: 45%;
+  bottom: 50%;
   animation-name: baseMidSetting;
 }
 
@@ -394,7 +394,7 @@ body {
 
 .base-bottom {
   z-index: 31;
-  bottom: 25%;
+  bottom: 30%;
   animation-name: baseBottomSetting;
 
 }

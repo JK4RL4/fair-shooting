@@ -16,7 +16,7 @@ MongoClient.connect( "mongodb://127.0.0.1:27017", function(err, client) {
 	if(err!==null) {
 		console.log(err);
 	} else {
-        app.locals.db = client.db("fairshooting");
+    app.locals.db = client.db("fairshooting");
 	}
 } );
 

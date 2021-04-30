@@ -12,6 +12,7 @@ router.get("/apiData/:collection", function(req, res, next) {
       console.log(err),
       res.send({mensaje: "Ha habido un error. " + err } );
     } else {
+      console.log(data);
       res.send(data);
     } 
   })
